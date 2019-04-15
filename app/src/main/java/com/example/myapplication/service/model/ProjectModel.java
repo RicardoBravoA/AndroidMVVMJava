@@ -19,8 +19,6 @@ public class ProjectModel {
     private Date createdAt;
     @SerializedName("updated_at")
     private Date updatedAt;
-    @SerializedName("pushed_at")
-    private Date pushedAt;
     @SerializedName("git_url")
     private String gitUrl;
     @SerializedName("ssh_url")
@@ -128,14 +126,6 @@ public class ProjectModel {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Date getPushedAt() {
-        return pushedAt;
-    }
-
-    public void setPushedAt(Date pushedAt) {
-        this.pushedAt = pushedAt;
     }
 
     public String getGitUrl() {
