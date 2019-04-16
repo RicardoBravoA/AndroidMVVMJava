@@ -1,5 +1,6 @@
 package com.example.myapplication.view.ui;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,13 +13,17 @@ import android.view.ViewGroup;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProjectDetailsBinding;
-import com.example.myapplication.viewmodel.ProjectViewModel;
+import com.example.myapplication.di.Injectable;
+import com.example.myapplication.viewmodel.ProjectDetailViewModel;
 
-public class ProjectDetailFragment extends Fragment {
+import javax.inject.Inject;
+
+public class ProjectDetailFragment extends Fragment implements Injectable {
 
     private static final String KEY_PROJECT_ID = "project_id";
     private FragmentProjectDetailsBinding binding;
-
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     @Nullable
     @Override
@@ -34,18 +39,17 @@ public class ProjectDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ProjectViewModel.Factory factory = new ProjectViewModel.Factory(getArguments().getString(KEY_PROJECT_ID));
+        final ProjectDetailViewModel viewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(ProjectDetailViewModel.class);
 
-        final ProjectViewModel viewModel = ViewModelProviders.of(this, factory)
-                .get(ProjectViewModel.class);
-
-        binding.setProjectViewModel(viewModel);
+        viewModel.setProjectID(getArguments().getString(KEY_PROJECT_ID));
+        binding.setProjectDetailViewModel(viewModel);
         binding.setIsLoading(true);
 
         observeViewModel(viewModel);
     }
 
-    private void observeViewModel(final ProjectViewModel viewModel) {
+    private void observeViewModel(final ProjectDetailViewModel viewModel) {
         // Observe project data
         viewModel.getObservableProject().observe(this, projectModel -> {
             if (projectModel != null) {

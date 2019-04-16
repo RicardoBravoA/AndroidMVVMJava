@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(subcomponents = ViewModelSubComponent.class)
-public class AppModule {
+class AppModule {
 
     @Singleton
     @Provides

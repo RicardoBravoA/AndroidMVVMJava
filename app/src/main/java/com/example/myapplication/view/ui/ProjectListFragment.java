@@ -1,6 +1,7 @@
 package com.example.myapplication.view.ui;
 
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -13,15 +14,20 @@ import android.view.ViewGroup;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProjectListBinding;
+import com.example.myapplication.di.Injectable;
 import com.example.myapplication.service.model.ProjectModel;
 import com.example.myapplication.view.adapter.ProjectAdapter;
 import com.example.myapplication.view.callback.ProjectClickCallback;
 import com.example.myapplication.viewmodel.ProjectListViewModel;
 
-public class ProjectListFragment extends Fragment implements ProjectClickCallback {
+import javax.inject.Inject;
+
+public class ProjectListFragment extends Fragment implements ProjectClickCallback, Injectable {
 
     public static final String TAG = "ProjectListFragment";
     private ProjectAdapter projectAdapter;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     @Nullable
     @Override
@@ -39,8 +45,8 @@ public class ProjectListFragment extends Fragment implements ProjectClickCallbac
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final ProjectListViewModel viewModel =
-                ViewModelProviders.of(this).get(ProjectListViewModel.class);
+        final ProjectListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(ProjectListViewModel.class);
+
         observeViewModel(viewModel);
     }
 

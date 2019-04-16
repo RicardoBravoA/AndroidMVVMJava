@@ -5,7 +5,7 @@
 
     <data>
         <variable name="isLoading" type="boolean" />
-        <variable name="projectViewModel" type="com.example.myapplication.viewmodel.ProjectViewModel"/>
+        <variable name="projectDetailViewModel" type="com.example.myapplication.viewmodel.ProjectDetailViewModel"/>
     </data>
 
     <FrameLayout
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="@dimen/project_header1"
-                android:text="@{projectViewModel.project.name}"
+                android:text="@{projectDetailViewModel.project.name}"
                 android:textAlignment="center"
                 android:paddingBottom="5dp"/>
 
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/project_header2"
-                android:text="@{projectViewModel.project.description}"/>
+                android:text="@{projectDetailViewModel.project.description}"/>
 
 
             <TextView
@@ -61,14 +61,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/project_text"
-                android:text="@{String.format(@string/languages, projectViewModel.project.language)}"/>
+                android:text="@{String.format(@string/languages, projectDetailViewModel.project.language)}"/>
 
             <TextView
                 android:id="@+id/project_open_issues"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/project_text"
-                android:text="@{String.format(@string/open_issues, projectViewModel.project.openIssues)}"/>
+                android:text="@{String.format(@string/open_issues, projectDetailViewModel.project.openIssues)}"/>
 
 
             <TextView
@@ -76,21 +76,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/project_text"
-                android:text="@{String.format(@string/created_at, projectViewModel.project.createdAt)}"/>
+                android:text="@{String.format(@string/created_at, projectDetailViewModel.project.createdAt)}"/>
 
             <TextView
                 android:id="@+id/project_updated_at"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/project_text"
-                android:text="@{String.format(@string/updated_at, projectViewModel.project.updatedAt)}"/>
+                android:text="@{String.format(@string/updated_at, projectDetailViewModel.project.updatedAt)}"/>
 
             <TextView
                 android:id="@+id/clone_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/project_text"
-                android:text="@{String.format(@string/clone_url, projectViewModel.project.cloneUrl)}"/>
+                android:text="@{String.format(@string/clone_url, projectDetailViewModel.project.cloneUrl)}"/>
 
         </LinearLayout>
 

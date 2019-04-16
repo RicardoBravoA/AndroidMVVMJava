@@ -7,33 +7,23 @@ import com.example.myapplication.service.model.ProjectModel;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@Singleton
 public class ProjectRepository {
 
     private GithubService gitHubService;
-    private static ProjectRepository projectRepository;
 
-    private ProjectRepository() {
-        //TODO this gitHubService instance will be injected using Dagger in part #2 ...
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GithubService.HTTPS_API_GITHUB_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        gitHubService = retrofit.create(GithubService.class);
-    }
-
-    public static synchronized ProjectRepository getInstance() {
-        //TODO No need to implement this singleton in Part #2 since Dagger will handle it ...
-        if (projectRepository == null) {
-            projectRepository = new ProjectRepository();
-        }
-        return projectRepository;
+    @Inject
+    public ProjectRepository(GithubService gitHubService) {
+        this.gitHubService = gitHubService;
     }
 
     public LiveData<List<ProjectModel>> getProjectList(String userId) {

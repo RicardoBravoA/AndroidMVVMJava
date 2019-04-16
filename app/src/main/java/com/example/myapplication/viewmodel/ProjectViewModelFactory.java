@@ -22,7 +22,7 @@ public class ProjectViewModelFactory implements ViewModelProvider.Factory {
     public ProjectViewModelFactory(ViewModelSubComponent viewModelSubComponent) {
         creators = new ArrayMap<>();
 
-        creators.put(ProjectViewModel.class, viewModelSubComponent::projectViewModel);
+        creators.put(ProjectDetailViewModel.class, viewModelSubComponent::projectViewModel);
         creators.put(ProjectListViewModel.class, viewModelSubComponent::projectListViewModel);
     }
 

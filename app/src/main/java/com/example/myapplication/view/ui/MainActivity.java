@@ -1,13 +1,23 @@
 package com.example.myapplication.view.ui;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.myapplication.R;
 import com.example.myapplication.service.model.ProjectModel;
 
-public class MainActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
+public class MainActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,4 +45,8 @@ public class MainActivity extends AppCompatActivity {
                         projectDetailFragment, null).commit();
     }
 
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
+    }
 }

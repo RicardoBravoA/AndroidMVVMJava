@@ -1,7 +1,7 @@
 package com.example.myapplication.di;
 
 import com.example.myapplication.viewmodel.ProjectListViewModel;
-import com.example.myapplication.viewmodel.ProjectViewModel;
+import com.example.myapplication.viewmodel.ProjectDetailViewModel;
 
 import dagger.Subcomponent;
 
@@ -15,6 +15,6 @@ public interface ViewModelSubComponent {
 
     ProjectListViewModel projectListViewModel();
 
-    ProjectViewModel projectViewModel();
+    ProjectDetailViewModel projectViewModel();
 
 }
