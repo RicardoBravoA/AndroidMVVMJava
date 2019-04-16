@@ -19,7 +19,7 @@ public class ProjectViewModel extends ViewModel {
     ProjectViewModel(final String projectID) {
         this.projectID = projectID;
 
-        projectObservable = ProjectRepository.getInstance().getProjectDetails("Google", projectID);
+        projectObservable = ProjectRepository.getInstance().getProjectDetails("RicardoBravoA", projectID);
     }
 
     public LiveData<ProjectModel> getObservableProject() {

@@ -14,7 +14,7 @@ public class ProjectListViewModel extends ViewModel {
     public ProjectListViewModel() {
 
         // If any transformation is needed, this can be simply done by Transformations class ...
-        projectListObservable = ProjectRepository.getInstance().getProjectList("Google");
+        projectListObservable = ProjectRepository.getInstance().getProjectList("RicardoBravoA");
     }
 
     /**

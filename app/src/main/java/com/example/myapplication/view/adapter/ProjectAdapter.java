@@ -13,53 +13,28 @@ import com.example.myapplication.databinding.ProjectListItemBinding;
 import com.example.myapplication.service.model.ProjectModel;
 import com.example.myapplication.view.callback.ProjectClickCallback;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder> {
 
-    private List<? extends ProjectModel> projectList;
+    private List<ProjectModel> projectModelList;
 
     @Nullable
     private final ProjectClickCallback projectClickCallback;
 
     public ProjectAdapter(@Nullable ProjectClickCallback projectClickCallback) {
         this.projectClickCallback = projectClickCallback;
+        projectModelList = new ArrayList<>();
     }
 
-    public void setProjectList(final List<? extends ProjectModel> projectList) {
-        if (this.projectList == null) {
-            this.projectList = projectList;
-            notifyItemRangeInserted(0, projectList.size());
-        } else {
-            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
-                @Override
-                public int getOldListSize() {
-                    return ProjectAdapter.this.projectList.size();
-                }
+    public void setProjectList(final List<ProjectModel> projectModelList) {
+        ProjectDiffCallback projectDiffCallback = new ProjectDiffCallback(this.projectModelList, projectModelList);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(projectDiffCallback);
+        diffResult.dispatchUpdatesTo(this);
+        this.projectModelList.clear();
+        this.projectModelList.addAll(projectModelList);
 
-                @Override
-                public int getNewListSize() {
-                    return projectList.size();
-                }
-
-                @Override
-                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return ProjectAdapter.this.projectList.get(oldItemPosition).getId() ==
-                            projectList.get(newItemPosition).getId();
-                }
-
-                @Override
-                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    ProjectModel currentProjectModel = projectList.get(newItemPosition);
-                    ProjectModel old = projectList.get(oldItemPosition);
-                    return currentProjectModel.getId() == old.getId()
-                            && Objects.equals(currentProjectModel.getGitUrl(), old.getGitUrl());
-                }
-            });
-            this.projectList = projectList;
-            result.dispatchUpdatesTo(this);
-        }
     }
 
     @NonNull
@@ -76,13 +51,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder projectViewHolder, int i) {
-        projectViewHolder.binding.setProject(projectList.get(i));
+        projectViewHolder.binding.setProject(projectModelList.get(i));
         projectViewHolder.binding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
-        return projectList == null ? 0 : projectList.size();
+        return projectModelList == null ? 0 : projectModelList.size();
     }
 
     static class ProjectViewHolder extends RecyclerView.ViewHolder {
