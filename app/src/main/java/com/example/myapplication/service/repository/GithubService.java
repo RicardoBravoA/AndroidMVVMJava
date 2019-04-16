@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-interface GithubService {
+public interface GithubService {
 
     String HTTPS_API_GITHUB_URL = "https://api.github.com/";
 
