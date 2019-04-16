@@ -1,6 +1,5 @@
 package com.example.myapplication.view.ui;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProjectDetailsBinding;
-import com.example.myapplication.service.model.ProjectModel;
 import com.example.myapplication.viewmodel.ProjectViewModel;
 
 public class ProjectFragment extends Fragment {
@@ -24,7 +22,8 @@ public class ProjectFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_details, container, false);
 
         // Create and set the adapter for the RecyclerView.
@@ -35,8 +34,7 @@ public class ProjectFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ProjectViewModel.Factory factory = new ProjectViewModel.Factory(
-                getActivity().getApplication(), getArguments().getString(KEY_PROJECT_ID));
+        ProjectViewModel.Factory factory = new ProjectViewModel.Factory(getArguments().getString(KEY_PROJECT_ID));
 
         final ProjectViewModel viewModel = ViewModelProviders.of(this, factory)
                 .get(ProjectViewModel.class);
@@ -49,13 +47,10 @@ public class ProjectFragment extends Fragment {
 
     private void observeViewModel(final ProjectViewModel viewModel) {
         // Observe project data
-        viewModel.getObservableProject().observe(this, new Observer<ProjectModel>() {
-            @Override
-            public void onChanged(@Nullable ProjectModel projectModel) {
-                if (projectModel != null) {
-                    binding.setIsLoading(false);
-                    viewModel.setProject(projectModel);
-                }
+        viewModel.getObservableProject().observe(this, projectModel -> {
+            if (projectModel != null) {
+                binding.setIsLoading(false);
+                viewModel.setProject(projectModel);
             }
         });
     }
