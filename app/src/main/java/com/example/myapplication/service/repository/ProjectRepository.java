@@ -28,7 +28,7 @@ public class ProjectRepository {
         gitHubService = retrofit.create(GithubService.class);
     }
 
-    public synchronized static ProjectRepository getInstance() {
+    public static synchronized ProjectRepository getInstance() {
         //TODO No need to implement this singleton in Part #2 since Dagger will handle it ...
         if (projectRepository == null) {
             projectRepository = new ProjectRepository();

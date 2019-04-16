@@ -26,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void show(ProjectModel project) {
-        ProjectFragment projectFragment = ProjectFragment.forProject(project.getName());
+        ProjectDetailFragment projectDetailFragment = ProjectDetailFragment.forProject(project.getName());
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack("project")
                 .replace(R.id.fragment_container,
-                        projectFragment, null).commit();
+                        projectDetailFragment, null).commit();
     }
 
 }

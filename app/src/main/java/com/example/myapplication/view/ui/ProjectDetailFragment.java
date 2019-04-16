@@ -14,7 +14,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProjectDetailsBinding;
 import com.example.myapplication.viewmodel.ProjectViewModel;
 
-public class ProjectFragment extends Fragment {
+public class ProjectDetailFragment extends Fragment {
 
     private static final String KEY_PROJECT_ID = "project_id";
     private FragmentProjectDetailsBinding binding;
@@ -55,8 +55,8 @@ public class ProjectFragment extends Fragment {
         });
     }
 
-    public static ProjectFragment forProject(String projectID) {
-        ProjectFragment fragment = new ProjectFragment();
+    public static ProjectDetailFragment forProject(String projectID) {
+        ProjectDetailFragment fragment = new ProjectDetailFragment();
         Bundle args = new Bundle();
 
         args.putString(KEY_PROJECT_ID, projectID);
