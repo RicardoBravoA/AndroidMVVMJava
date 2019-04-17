@@ -13,8 +13,6 @@ import javax.inject.Singleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 @Singleton
 public class ProjectRepository {
@@ -22,7 +20,7 @@ public class ProjectRepository {
     private GithubService gitHubService;
 
     @Inject
-    public ProjectRepository(GithubService gitHubService) {
+    ProjectRepository(GithubService gitHubService) {
         this.gitHubService = gitHubService;
     }
 

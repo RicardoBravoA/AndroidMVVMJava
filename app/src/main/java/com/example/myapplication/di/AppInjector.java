@@ -26,7 +26,7 @@ public class AppInjector {
         projectApplication.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                //Do nothing
+                handleActivity(activity);
             }
 
             @Override
