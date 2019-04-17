@@ -12,16 +12,16 @@ import javax.inject.Inject;
 
 public class ProjectDetailViewModel extends ViewModel {
 
-    private final LiveData<ProjectModel> projectObservable;
+    private LiveData<ProjectModel> projectObservable;
     private final MutableLiveData<String> projectID;
     public ObservableField<ProjectModel> project = new ObservableField<>();
+    @Inject
+    ProjectRepository projectRepository;
 
     @Inject
-    ProjectDetailViewModel(ProjectRepository projectRepository) {
+    ProjectDetailViewModel() {
         this.projectID = new MutableLiveData<>();
-
-        projectObservable = projectRepository.getProjectDetails("RicardoBravoA", projectID.getValue());
-
+        this.projectObservable = new MutableLiveData<>();
     }
 
     public LiveData<ProjectModel> getObservableProject() {
@@ -34,5 +34,9 @@ public class ProjectDetailViewModel extends ViewModel {
 
     public void setProjectID(String projectID) {
         this.projectID.setValue(projectID);
+
+        projectObservable = projectRepository.getProjectDetails("RicardoBravoA", this.projectID.getValue());
+
     }
+
 }

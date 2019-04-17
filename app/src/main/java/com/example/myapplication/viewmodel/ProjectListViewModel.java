@@ -19,7 +19,7 @@ public class ProjectListViewModel extends AndroidViewModel {
     @Inject
     public ProjectListViewModel(@NonNull ProjectRepository projectRepository, @NonNull Application application) {
         super(application);
-        projectListObservable = projectRepository.getProjectList("Google");
+        projectListObservable = projectRepository.getProjectList("RicardoBravoA");
     }
 
     public LiveData<List<ProjectModel>> getProjectListObservable() {

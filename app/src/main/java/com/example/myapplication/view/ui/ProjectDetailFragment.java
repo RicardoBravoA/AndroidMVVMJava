@@ -44,17 +44,15 @@ public class ProjectDetailFragment extends Fragment implements Injectable {
 
         viewModel.setProjectID(getArguments().getString(KEY_PROJECT_ID));
         binding.setProjectDetailViewModel(viewModel);
-        binding.setIsLoading(true);
 
         observeViewModel(viewModel);
     }
 
     private void observeViewModel(final ProjectDetailViewModel viewModel) {
         // Observe project data
-        viewModel.getObservableProject().observe(this, projectModel -> {
-            if (projectModel != null) {
-                binding.setIsLoading(false);
-                viewModel.setProject(projectModel);
+        viewModel.getObservableProject().observe(this, projectDetailViewModel -> {
+            if (projectDetailViewModel != null) {
+                viewModel.setProject(projectDetailViewModel);
             }
         });
     }

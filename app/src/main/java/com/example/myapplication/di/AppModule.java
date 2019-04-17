@@ -9,6 +9,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,12 +20,24 @@ class AppModule {
     @Singleton
     @Provides
     GithubService provideGithubService() {
+
+
         return new Retrofit.Builder()
                 .baseUrl(GithubService.HTTPS_API_GITHUB_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(getOkHttpClient())
                 .build()
                 .create(GithubService.class);
     }
+
+    @Singleton
+    @Provides
+    OkHttpClient getOkHttpClient() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return new OkHttpClient.Builder().addInterceptor(logging).build();
+    }
+
 
     @Singleton
     @Provides
