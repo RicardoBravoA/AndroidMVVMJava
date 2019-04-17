@@ -21,7 +21,6 @@ class AppModule {
     @Provides
     GithubService provideGithubService() {
 
-
         return new Retrofit.Builder()
                 .baseUrl(GithubService.HTTPS_API_GITHUB_URL)
                 .addConverterFactory(GsonConverterFactory.create())
